@@ -658,8 +658,8 @@ main(int argc, char **argv) {
 	sigset_t signal_mask;
 	sigemptyset(&signal_mask);
 	sigaddset(&signal_mask, SIGUSR1);
-	sigaddset(&signal_mask, SIGUSR2);
-	sigaddset(&signal_mask, SIGRTMIN);
+	// sigaddset(&signal_mask, SIGUSR2);
+	// sigaddset(&signal_mask, SIGRTMIN);
 	sigaddset(&signal_mask, SIGPIPE);
 	if (sigprocmask(SIG_BLOCK, &signal_mask, NULL) == -1) {
 		die("Failed to disable handled signals: %d\n", errno);
@@ -682,9 +682,9 @@ main(int argc, char **argv) {
 
 			if (read(fds[SIGNAL_FD].fd, &si, sizeof(si)) != sizeof(si))
 				fprintf(stderr, "Signal read error: %d", errno);
-			else if (si.ssi_signo == SIGUSR1) hide();
-			else if (si.ssi_signo == SIGUSR2) show();
-			else if (si.ssi_signo == SIGRTMIN) toggle_visibility();
+			// else if (si.ssi_signo == SIGUSR1) hide();
+			// else if (si.ssi_signo == SIGUSR2) show();
+			else if (si.ssi_signo == SIGUSR1) toggle_visibility();
 			else if (si.ssi_signo == SIGPIPE) pipewarn();
 		}
 	}
